@@ -1,0 +1,417 @@
+openapi: 3.0.0
+info:
+  title: Formly API
+  version: 1.0.0
+  description: API to create customized forms that look good.
+servers:
+  - url: http://localhost:3005
+
+paths:
+  /form:
+    post:
+      summary: Create a new form
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Form'
+      responses:
+        '201':
+          description: Form created
+
+  /form/workspace/{workspace}:
+    get:
+      summary: Get forms of a workspace by creator
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: workspace
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: creator
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Forms for given workspace and user
+          schema : 
+            $ref : '#/components/schema/GetWorkspacesFormResponseType'
+
+
+  /form/{formId}:
+    get:
+      summary: Get form with its fields
+      parameters:
+        - in: path
+          name: formId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Form with fields
+
+  /form/{formId}:
+    delete:
+      summary: Delete a form by ID
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: formId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Form deleted
+
+  /formField/:
+    post:
+      summary: Create multiple form fields
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/FormField'
+      responses:
+        '201':
+          description: Multiple form fields created
+    patch:
+      summary: Update multiple form fields
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateMultipleFormFields'
+      responses:
+        '200':
+          description: Multiple form fields updated
+
+  /formField/form/{formId}:
+    get:
+      summary: Get form fields by form ID
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: formId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of form fields
+
+  /formField/{formFieldId}:
+    delete:
+      summary: Delete a form field by ID
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: formFieldId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Form field deleted
+
+  /workspace:
+    post:
+      summary: Create a new workspace
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Workspace'
+      responses:
+        '201':
+          description: Workspace created
+
+  /workspace/owner/{ownerId}:
+    get:
+      summary: Get workspaces by owner
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: ownerId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Workspaces of the owner
+
+  /workspace/{workspaceId}:
+    delete:
+      summary: Delete a workspace by ID
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: workspaceId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Workspace deleted
+
+  /respondent:
+    post:
+      summary: Create a new respondent
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Respondent'
+      responses:
+        '201':
+          description: Respondent created
+
+  /respondent/form/{formId}:
+    get:
+      summary: Get respondents by form ID
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: formId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of respondents
+
+  /respondent/{respondentId}:
+    get:
+      summary: Get responses by respondent ID
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: respondentId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Responses for respondent
+
+  /respondent/delete:
+    put:
+      summary: Delete multiple respondents
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeleteMultipleRespondents'
+      responses:
+        '200':
+          description: Respondents deleted
+
+  /response:
+    post:
+      summary: Create a response to a form field
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Response'
+      responses:
+        '201':
+          description: Response created
+
+  /response/multiple:
+    post:
+      summary: Create multiple responses
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Response'
+      responses:
+        '201':
+          description: Multiple responses created
+
+  /response/form/{formId}:
+    get:
+      summary: Get responses for a form
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: formId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of responses
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    Form:
+      type: object
+      properties:
+        name:
+          type: string
+        workspace:
+          type: string
+        creator:
+          type: string
+        form_schema:
+          type: string
+      required: [name, workspace, creator, form_schema]
+
+    FormField:
+      type: object
+      properties:
+        form:
+          type: string
+        label:
+          type: string
+        placeholder:
+          type: string
+        type:
+          type: string
+        order:
+          type: integer
+        isRequired:
+          type: boolean
+        min:
+          type: integer
+          nullable: true
+        max:
+          type: integer
+          nullable: true
+        file_url:
+          type: string
+          nullable: true
+        file_limit:
+          type: integer
+          nullable: true
+        accepted_file_types:
+          type: array
+          items:
+            type: string
+          nullable: true
+        choices:
+          type: array
+          items:
+            type: string
+          nullable: true
+        multiple_select:
+          type: boolean
+          nullable: true
+        subType:
+          type: string
+          nullable: true
+      required: [form, label, type, order, isRequired]
+      
+
+    UpdateMultipleFormFields:
+      type: object
+      properties:
+        formId:
+          type: string
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/FormField'
+        form_json_schema:
+          type: string
+      required: [formId, fields, form_json_schema]
+
+    Workspace:
+      type: object
+      properties:
+        name:
+          type: string
+        owner:
+          type: string
+      required: [name, owner]
+
+    Respondent:
+      type: object
+      properties:
+        form:
+          type: string
+        country:
+          type: string
+        city:
+          type: string
+      required: [form, country, city]
+
+    DeleteMultipleRespondents:
+      type: object
+      properties:
+        respondents:
+          type: array
+          items:
+            type: string
+      required: [respondents]
+
+    Response:
+      type: object
+      properties:
+        form:
+          type: string
+        form_field:
+          type: string
+        value:
+          type: string
+        respondent:
+          type: string
+      required: [form, form_field, value, respondent]
+
+    GetWorkspacesFormResponseType:
+      type: object
+      properties : 
+        message : 
+          type : string
+          forms : array 
+          items :
+            type: object
+            properties: 
+              id : string
+              name : string
+              shortId : string
+      
+

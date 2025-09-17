@@ -1,4 +1,4 @@
-import { DrizzleError, eq, sql } from "drizzle-orm";
+import { asc, count, desc, DrizzleError, eq, sql } from "drizzle-orm";
 import ApiError, { errorTypes } from "../utils/apiError";
 import db from "../db/config";
 import responsesTable from "../db/schema/responses";
@@ -33,7 +33,9 @@ export const createResponseService = async (
 };
 
 export const getFormResponsesService = async (
-  formId: typeof responsesTable.$inferInsert.form
+  formId: typeof responsesTable.$inferInsert.form,
+  pageIndex: number,
+  pageSize: number
 ) => {
   try {
     const respondent = await db
@@ -43,7 +45,17 @@ export const getFormResponsesService = async (
         form: respondentTable.form,
       })
       .from(respondentTable)
+      .where(eq(respondentTable.form, formId))
+      .orderBy(desc(respondentTable.createdAt))
+      .limit(pageSize)
+      .offset((pageIndex * pageSize))
+
+    const respondentCount = await db
+      .select({ totalCount: count() })
+      .from(respondentTable)
       .where(eq(respondentTable.form, formId));
+
+    const totalPages = Math.ceil(respondentCount[0].totalCount / pageSize);
 
     const headers = await db
       .select({
@@ -53,8 +65,8 @@ export const getFormResponsesService = async (
       .where(eq(formFieldTable.form, formId))
       .orderBy(formFieldTable.updatedAt);
 
-    headers.unshift({label:"Time"})
-    
+    headers.unshift({ label: "Time" });
+
     const res: any[] = [];
 
     for await (const r of respondent) {
@@ -73,12 +85,11 @@ export const getFormResponsesService = async (
 
       const reduce = response?.reduceRight((prev, curr) => {
         return {
-          Time:r?.createdAt,
+          Time: r?.createdAt,
           [curr?.field as string]: curr?.value,
           ...prev,
-          id:r?.id,
-          form:r?.form
-
+          id: r?.id,
+          form: r?.form,
         };
       }, {});
 
@@ -88,6 +99,10 @@ export const getFormResponsesService = async (
     return {
       res,
       headers,
+      pageIndex,
+      pageSize,
+      totalPages,
+      totalCount: respondentCount[0].totalCount,
     };
   } catch (error) {
     commonCatch(error);

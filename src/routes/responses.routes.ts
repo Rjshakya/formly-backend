@@ -29,7 +29,7 @@ responsesRouter.post(
 
 responsesRouter.get(
   "/form/:formId",
-  // authMiddleWare,
+  authMiddleWare,
   validationMiddleware(
     z.object({ formId: z.string().nonempty() }),
     source.params

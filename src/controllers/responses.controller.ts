@@ -15,12 +15,7 @@ export const postFormResponse = asyncHandler(async (req, res) => {
 });
 
 export const postMultipleResponse = asyncHandler(async (req, res) => {
-
-  
-  const responses = await createMultipleResponsesService(
-    req?.body,
-  
-  );
+  const responses = await createMultipleResponsesService(req?.body);
   res.status(200).json({
     message: "ok",
     responses,
@@ -28,7 +23,16 @@ export const postMultipleResponse = asyncHandler(async (req, res) => {
 });
 
 export const getFormResponses = asyncHandler(async (req, res) => {
-  const responses = await getFormResponsesService(req?.params?.formId);
+  const pageIndex = Math.max(0, parseInt(req?.query?.pageIndex as string));
+  const pageSize = Math.max(1, parseInt(req?.query?.pageSize as string));
+
+  console.log(pageIndex, pageSize);
+
+  const responses = await getFormResponsesService(
+    req?.params?.formId,
+    pageIndex,
+    pageSize
+  );
   res.status(200).json({
     message: "ok",
     responses,

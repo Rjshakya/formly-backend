@@ -19,7 +19,7 @@ const formTable = pgTable("forms", {
     .text()
     .notNull()
     .references(() => user.id, { onDelete: "cascade" }),
-  shortId: t.varchar({ length: 255 }).unique().primaryKey(),
+  shortId: t.varchar({ length: 255 }).unique(),
   form_schema: t.text().notNull(),
   createdAt: t.timestamp().defaultNow().notNull(),
   updatedAt: t.timestamp().defaultNow().notNull(),

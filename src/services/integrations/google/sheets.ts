@@ -7,7 +7,8 @@ import { GoogleService } from "./google.services";
 import formTable from "../../../db/schema/forms";
 import { createNewIntegration } from "../../integration.services";
 import logger from "../../../utils/logger";
-import integrationTable from "../../../db/schema/integrations";
+import { integrationTable } from "../../../db/schema/integrations";
+
 
 export const sheetsServices = async (
   userId: string,
@@ -37,14 +38,7 @@ export const sheetsServices = async (
     );
     const { spreadsheetId, spreadsheetUrl } = sheet!.data;
 
-    await createNewIntegration({
-      provider: "google",
-      userId,
-      app: "sheets",
-      spreadsheetId,
-      spreadsheetUrl,
-      form: formId,
-    });
+    
 
     return { spreadsheetId, spreadsheetUrl };
   } catch (error) {
@@ -53,15 +47,3 @@ export const sheetsServices = async (
   }
 };
 
-export const getIntegrationsService = async (userId: string) => {
-  try {
-    const integrations = await db
-      .select()
-      .from(integrationTable)
-      .where(eq(integrationTable.userId, userId));
-
-    return integrations;
-  } catch (e) {
-    throw new ApiError(JSON.stringify(e), 500, errorTypes.INTERNAL);
-  }
-};

@@ -4,7 +4,7 @@ import { account } from "../../../db/schema/auth-schema";
 import ApiError, { errorTypes } from "../../../utils/apiError";
 import { auth } from "../../../utils/auth";
 import { GoogleService } from "./google.services";
-import formTable from "../../../db/schema/forms";
+import {formTable} from "../../../db/schema/forms";
 import { createNewIntegration } from "../../integration.services";
 import logger from "../../../utils/logger";
 import { integrationTable } from "../../../db/schema/integrations";

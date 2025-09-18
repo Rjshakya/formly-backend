@@ -2,11 +2,11 @@ import { NextFunction, Request, Response } from "express";
 import z, { email, object, ZodSchema } from "zod";
 import ApiError from "./apiError.js";
 import { createSelectSchema, createInsertSchema } from "drizzle-zod";
-import formFieldTable from "../db/schema/formfields.js";
-import formTable from "../db/schema/forms.js";
-import respondentTable from "../db/schema/respondents.js";
-import responsesTable from "../db/schema/responses.js";
-import workspaceTable from "../db/schema/workspace.js";
+import {formFieldTable} from "../db/schema/formfields.js";
+import {formTable} from "../db/schema/forms.js";
+import {respondentTable} from "../db/schema/respondents.js";
+import {responsesTable} from "../db/schema/responses.js";
+import {workspaceTable} from "../db/schema/workspace.js";
 import { user } from "../db/schema/auth-schema.js";
 
 export enum source {

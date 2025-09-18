@@ -1,10 +1,11 @@
 import { and, asc, DrizzleError, eq } from "drizzle-orm";
 import db from "../db/config";
-import formTable from "../db/schema/forms";
+import {formTable} from "../db/schema/forms";
 import ApiError, { errorTypes } from "../utils/apiError";
 import { user } from "../db/schema/auth-schema";
-import formFieldTable from "../db/schema/formfields";
+import {formFieldTable} from "../db/schema/formfields";
 import logger from "../utils/logger";
+import { commonCatch } from "../utils/error";
 
 export const createFormService = async (
   formValues: typeof formTable.$inferInsert
@@ -103,28 +104,9 @@ export const getFormWithFormFieldsService = async (
       .leftJoin(formFieldTable, eq(formTable.shortId, formFieldTable.form))
       .orderBy(asc(formFieldTable.order));
 
-    const result = rows.reduce(
-      (acc, row) => {
-        if (acc?.forms?.id?.length === 0) {
-          acc.forms.id = row?.forms?.id;
-          acc.forms.name = row?.forms?.name;
-          acc.forms.shortId = row?.forms?.shortId;
-          acc.forms.form_json_schema = row?.forms?.form_schema;
-        }
+   
 
-        if (row?.form_fields?.id) {
-          acc?.form_fields?.push(row?.form_fields);
-        }
-
-        return acc;
-      },
-      {
-        forms: { id: "", name: "", shortId: "", form_json_schema: "" },
-        form_fields: [] as (typeof formFieldTable.$inferSelect)[],
-      }
-    );
-
-    return result;
+    return rows;
   } catch (error) {
     commonCatch(error);
   }
@@ -144,7 +126,7 @@ export const getFormService = async (
         updatedAt: formTable.updatedAt,
       })
       .from(formTable)
-      .where(eq(formTable.shortId, formId));
+      .where(eq(formTable.shortId, formId!));
 
     return { ...form[0], form_schema: JSON.parse(form[0].form_schema) };
   } catch (e) {
@@ -152,12 +134,4 @@ export const getFormService = async (
   }
 };
 
-const commonCatch = (error: unknown) => {
-  logger.error(error);
 
-  if (error instanceof DrizzleError) {
-    throw new ApiError(error?.message, 500, errorTypes.INTERNAL);
-  }
-
-  throw new ApiError(JSON.stringify(error), 500, errorTypes.INTERNAL);
-};

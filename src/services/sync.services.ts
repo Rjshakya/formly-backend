@@ -1,6 +1,6 @@
 import { and, eq } from "drizzle-orm";
 import db from "../db/config";
-import formFieldTable from "../db/schema/formfields";
+import {formFieldTable} from "../db/schema/formfields";
 import ApiError, { errorTypes } from "../utils/apiError";
 import logger from "../utils/logger";
 

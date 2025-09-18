@@ -1,7 +1,10 @@
 import db from "../db/config.js";
-import workspaceTable from "../db/schema/workspace.js";
+import { workspaceTable } from "../db/schema/workspace.js";
 import ApiError, { errorTypes } from "../utils/apiError.js";
-import { eq } from "drizzle-orm";
+import { DrizzleError, eq } from "drizzle-orm";
+import logger from "../utils/logger.js";
+import { commonCatch } from "../utils/error.js";
+import { formTable } from "../db/schema/forms.js";
 
 export const createWorkspaceService = async (
   workspaceValues: typeof workspaceTable.$inferInsert
@@ -34,6 +37,36 @@ export const getOwnerWorkspaceService = async (
     return workspace;
   } catch (error) {
     throw new ApiError("internal error -s", 500, errorTypes.INTERNAL);
+  }
+};
+
+export const getWorkspacesWithFormsService = async (userId: string) => {
+  try {
+    const res = await db
+      .select({
+        id: workspaceTable.id,
+        name: workspaceTable.name,
+        createdAt: workspaceTable.createdAt,
+        forms: {
+          id: formTable.shortId,
+          name: formTable.name,
+        },
+      })
+      .from(workspaceTable)
+      .where(eq(workspaceTable.owner, userId))
+      .innerJoin(formTable, eq(formTable.workspace, workspaceTable.id));
+
+    const res1 = await db.query.workspaceTable.findMany({
+      where: eq(workspaceTable.owner, userId),
+      with: {
+        forms: true,
+      },
+    });
+
+    return res1;
+  } catch (e) {
+    console.log(e)
+    commonCatch(e);
   }
 };
 

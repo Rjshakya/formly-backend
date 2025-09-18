@@ -1,9 +1,10 @@
 import { pgTable } from "drizzle-orm/pg-core";
 import * as t from "drizzle-orm/pg-core";
-import { sql } from "drizzle-orm";
+import { relations, sql } from "drizzle-orm";
 import { user } from "./auth-schema";
+import { formTable } from "./forms";
 
-const workspaceTable = pgTable("workspaces", {
+export const workspaceTable = pgTable("workspaces", {
   id: t
     .uuid()
     .primaryKey()
@@ -13,8 +14,10 @@ const workspaceTable = pgTable("workspaces", {
     .text()
     .notNull()
     .references(() => user.id, { onDelete: "cascade" }),
-  createdAt:t.timestamp().defaultNow().notNull(),
-  updatedAt:t.timestamp().defaultNow().notNull()
+  createdAt: t.timestamp().defaultNow().notNull(),
+  updatedAt: t.timestamp().defaultNow().notNull(),
 });
 
-export default workspaceTable;
+export const workspaceRelations = relations(workspaceTable, ({ many }) => ({
+  forms: many(formTable),
+}));

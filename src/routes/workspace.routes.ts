@@ -8,6 +8,7 @@ import {
   createNewWorkspace,
   deleteWorkspace,
   getWorkspacesByUser,
+  getWorkspacesWithForms,
 } from "../controllers/workspace.controller.js";
 import z from "zod";
 import { authMiddleWare } from "../middlewares/authMiddleware.js";
@@ -30,6 +31,8 @@ workspaceRouter.get(
   ),
   getWorkspacesByUser
 );
+
+workspaceRouter.get(`/with_forms/:userId`, getWorkspacesWithForms);
 
 workspaceRouter.delete(
   "/:workspaceId",

@@ -1,14 +1,14 @@
 import { sql } from "drizzle-orm";
 import { pgTable } from "drizzle-orm/pg-core";
 import * as t from "drizzle-orm/pg-core";
-import formTable from "./forms";
+import {formTable} from "./forms";
 
 interface choicesType {
   label: string;
   id: string;
 }
 
-const formFieldTable = pgTable("form_fields", {
+export const formFieldTable = pgTable("form_fields", {
   id: t
     .uuid()
     .primaryKey()
@@ -33,4 +33,3 @@ const formFieldTable = pgTable("form_fields", {
   updatedAt: t.timestamp().defaultNow(),
 });
 
-export default formFieldTable;

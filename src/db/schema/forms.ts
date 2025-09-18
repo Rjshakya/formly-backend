@@ -1,11 +1,11 @@
-import { sql, Table } from "drizzle-orm";
+import { relations, sql, Table } from "drizzle-orm";
 import { pgTable } from "drizzle-orm/pg-core";
 import * as t from "drizzle-orm/pg-core";
-import workspaceTable from "./workspace";
+import { workspaceTable } from "./workspace";
 import { user } from "./auth-schema";
 import { uid } from "../../utils/shortIDgen";
 
-const formTable = pgTable("forms", {
+export const formTable = pgTable("forms", {
   id: t
     .uuid()
     .primaryKey()
@@ -25,4 +25,9 @@ const formTable = pgTable("forms", {
   updatedAt: t.timestamp().defaultNow().notNull(),
 });
 
-export default formTable;
+export const formRelations = relations(formTable, ({ one }) => ({
+  workspace: one(workspaceTable, {
+    fields: [formTable.workspace],
+    references: [workspaceTable.id],
+  }),
+}));

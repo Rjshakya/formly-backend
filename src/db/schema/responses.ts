@@ -1,11 +1,11 @@
 import { sql } from "drizzle-orm";
 import { pgTable } from "drizzle-orm/pg-core";
 import * as t from "drizzle-orm/pg-core";
-import formFieldTable from "./formfields";
-import formTable from "./forms";
-import respondentTable from "./respondents";
+import {formFieldTable} from "./formfields";
+import {formTable} from "./forms";
+import {respondentTable} from "./respondents";
 
-const responsesTable = pgTable("responses", {
+export const responsesTable = pgTable("responses", {
   id: t
     .uuid()
     .primaryKey()
@@ -27,4 +27,3 @@ const responsesTable = pgTable("responses", {
   updatedAt: t.timestamp().defaultNow().notNull(),
 });
 
-export default responsesTable;

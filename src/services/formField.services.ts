@@ -1,8 +1,8 @@
 import { and, DrizzleError, eq } from "drizzle-orm";
 import db from "../db/config";
-import formFieldTable from "../db/schema/formfields";
+import {formFieldTable} from "../db/schema/formfields";
 import ApiError, { errorTypes } from "../utils/apiError";
-import formTable from "../db/schema/forms";
+import {formTable} from "../db/schema/forms";
 import logger from "../utils/logger";
 const commonCatch = (error: unknown) => {
   logger.error(error);

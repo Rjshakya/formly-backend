@@ -1,10 +1,10 @@
 import { asc, count, desc, DrizzleError, eq, sql } from "drizzle-orm";
 import ApiError, { errorTypes } from "../utils/apiError";
 import db from "../db/config";
-import responsesTable from "../db/schema/responses";
-import formFieldTable from "../db/schema/formfields";
-import formTable from "../db/schema/forms";
-import respondentTable from "../db/schema/respondents";
+import {responsesTable} from "../db/schema/responses";
+import {formFieldTable} from "../db/schema/formfields";
+import {formTable} from "../db/schema/forms";
+import {respondentTable} from "../db/schema/respondents";
 import { googleSheetsQueue } from "../queue/googleSheet";
 import logger from "../utils/logger";
 

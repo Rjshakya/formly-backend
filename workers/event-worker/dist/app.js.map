@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../src/app.ts"],
+  "sourcesContent": ["import { Worker } from \"bullmq\";\r\nimport { connection } from \"./config\";\r\n\r\nconst eventWorker = new Worker(\r\n  \"event-queue\",\r\n  async (job) => {\r\n    if (job.name === \"create-integration-event\") {\r\n      console.log(\"Integration Event Worker is running....\", job.data);\r\n    }\r\n  },\r\n  {\r\n    connection,\r\n    autorun:false\r\n  },\r\n  \r\n  \r\n);\r\n\r\nawait eventWorker.run()\r\nconsole.log('hello eveny');\r\n\r\n\r\neventWorker.on(\"ready\", () => {\r\n  console.log(\"Event Worker is ready to process jobs\");\r\n});\r\n\r\neventWorker.on(\"error\", (err) => {\r\n  console.log(`error in event worker`, err);\r\n})\r\n"],
+  "mappings": "AAAA,SAAS,cAAc;AACvB,SAAS,kBAAkB;AAE3B,MAAM,cAAc,IAAI;AAAA,EACtB;AAAA,EACA,OAAO,QAAQ;AACb,QAAI,IAAI,SAAS,4BAA4B;AAC3C,cAAQ,IAAI,2CAA2C,IAAI,IAAI;AAAA,IACjE;AAAA,EACF;AAAA,EACA;AAAA,IACE;AAAA,IACA,SAAQ;AAAA,EACV;AAGF;AAEA,MAAM,YAAY,IAAI;AACtB,QAAQ,IAAI,aAAa;AAGzB,YAAY,GAAG,SAAS,MAAM;AAC5B,UAAQ,IAAI,uCAAuC;AACrD,CAAC;AAED,YAAY,GAAG,SAAS,CAAC,QAAQ;AAC/B,UAAQ,IAAI,yBAAyB,GAAG;AAC1C,CAAC;",
+  "names": []
+}

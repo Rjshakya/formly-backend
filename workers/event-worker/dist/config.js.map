@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../src/config.ts"],
+  "sourcesContent": ["import IORedis from \"ioredis\";\r\n\r\nexport const connection = new IORedis({maxRetriesPerRequest:null});\r\n"],
+  "mappings": "AAAA,OAAO,aAAa;AAEb,MAAM,aAAa,IAAI,QAAQ,EAAC,sBAAqB,KAAI,CAAC;",
+  "names": []
+}

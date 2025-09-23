@@ -1,9 +1,8 @@
 import { and, DrizzleError, eq } from "drizzle-orm";
-import db from "../db/config";
-import {formFieldTable} from "../db/schema/formfields";
-import ApiError, { errorTypes } from "../utils/apiError";
-import {formTable} from "../db/schema/forms";
-import logger from "../utils/logger";
+import db from "../db/config.js";
+import { formFieldTable } from "../db/schema/formfields.js";
+import ApiError, { errorTypes } from "../utils/apiError.js";
+import logger from "../utils/logger.js";
 const commonCatch = (error: unknown) => {
   logger.error(error);
 
@@ -133,7 +132,6 @@ export const updateFormFieldsService = async ({
             .where(eq(formFieldTable.id, fieldinDb?.id));
         }
       }
-
     });
 
     // await db.transaction(async (tx) => {

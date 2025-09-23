@@ -1,8 +1,8 @@
 import { relations, sql } from "drizzle-orm";
 import { pgTable } from "drizzle-orm/pg-core";
 import * as t from "drizzle-orm/pg-core";
-import { user } from "./auth-schema";
-import { formTable } from "./forms";
+
+import { formTable } from "./forms.js";
 
 export const integrationTable = pgTable("integrations", {
   id: t

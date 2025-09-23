@@ -4,9 +4,8 @@ import {
   deleteFormFieldService,
   getFormFieldsService,
   updateFormFieldsService,
-} from "../services/formField.services";
-import asyncHandler from "../utils/asynHandler";
-import logger from "../utils/logger";
+} from "../services/formField.services.js";
+import asyncHandler from "../utils/asynHandler.js";
 
 export const createFormField = asyncHandler(async (req, res) => {
   const formField = await createFormFieldService(req?.body);

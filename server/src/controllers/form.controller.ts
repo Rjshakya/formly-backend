@@ -5,8 +5,8 @@ import {
   getFormWithFormFieldsService,
   getWorkspaceFormService,
   updateFormIdService,
-} from "../services/form.services";
-import asyncHandler from "../utils/asynHandler";
+} from "../services/form.services.js";
+import asyncHandler from "../utils/asynHandler.js";
 
 export const getForm = asyncHandler(async (req, res) => {
   const form = await getFormService(req?.params?.formId);

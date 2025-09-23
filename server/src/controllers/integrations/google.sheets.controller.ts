@@ -1,7 +1,7 @@
-import { sheetsServices } from "../../services/integrations/google/sheets";
-import ApiError from "../../utils/apiError";
-import asyncHandler from "../../utils/asynHandler";
-import logger from "../../utils/logger";
+import { sheetsServices } from "../../services/integrations/google/sheets.js";
+import ApiError, { errorTypes } from "../../utils/apiError.js";
+import asyncHandler from "../../utils/asynHandler.js";
+import logger from "../../utils/logger.js";
 
 export const googleSheetController = asyncHandler(async (req, res) => {
   try {
@@ -14,6 +14,6 @@ export const googleSheetController = asyncHandler(async (req, res) => {
     });
   } catch (error) {
     logger.error(JSON.stringify(error));
-    throw new ApiError("internal error", 500, "internal error");
+    throw new ApiError("internal error", 500, errorTypes.INTERNAL);
   }
 });

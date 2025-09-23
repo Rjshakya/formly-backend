@@ -3,8 +3,8 @@ import {
   getAccessTokenObject,
   source,
   validationMiddleware,
-} from "../utils/validations";
-import { getAccessTokenController } from "../controllers/internal.api.controller";
+} from "../utils/validations.js";
+import { getAccessTokenController } from "../controllers/internal.api.controller.js";
 
 export const internalRouter = express.Router();
 

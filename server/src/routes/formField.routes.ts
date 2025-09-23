@@ -5,16 +5,16 @@ import {
   source,
   updateMultipleFieldObject,
   validationMiddleware,
-} from "../utils/validations";
+} from "../utils/validations.js";
 import {
   createFormField,
   deleteFormField,
   getFormFields,
   postMultipleFormFields,
   updateFormFields,
-} from "../controllers/form.field.controller";
+} from "../controllers/form.field.controller.js";
 import z from "zod";
-import { authMiddleWare } from "../middlewares/authMiddleware";
+import { authMiddleWare } from "../middlewares/authMiddleware.js";
 
 const formFieldsRouter = express.Router();
 

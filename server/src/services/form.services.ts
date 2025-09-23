@@ -1,11 +1,10 @@
-import { and, asc, DrizzleError, eq } from "drizzle-orm";
-import db from "../db/config";
-import {formTable} from "../db/schema/forms";
-import ApiError, { errorTypes } from "../utils/apiError";
-import { user } from "../db/schema/auth-schema";
-import {formFieldTable} from "../db/schema/formfields";
-import logger from "../utils/logger";
-import { commonCatch } from "../utils/error";
+import { and, asc, eq } from "drizzle-orm";
+import db from "../db/config.js";
+import { formTable } from "../db/schema/forms.js";
+import { user } from "../db/schema/auth-schema.js";
+import { formFieldTable } from "../db/schema/formfields.js";
+
+import { commonCatch } from "../utils/error.js";
 
 export const createFormService = async (
   formValues: typeof formTable.$inferInsert
@@ -104,9 +103,6 @@ export const getFormWithFormFieldsService = async (
       .leftJoin(formFieldTable, eq(formTable.shortId, formFieldTable.form))
       .orderBy(asc(formFieldTable.order));
 
-    
-   
-
     return rows;
   } catch (error) {
     commonCatch(error);
@@ -134,5 +130,3 @@ export const getFormService = async (
     commonCatch(e);
   }
 };
-
-

@@ -1,13 +1,13 @@
 import express from "express";
-import { googleSheetController } from "../controllers/integrations/google.sheets.controller";
-import { authMiddleWare } from "../middlewares/authMiddleware";
+import { googleSheetController } from "../controllers/integrations/google.sheets.controller.js";
+import { authMiddleWare } from "../middlewares/authMiddleware.js";
 import {
   googleSheetObject,
   integrationObject,
   source,
   validationMiddleware,
 } from "../utils/validations";
-import { getUserIntegrations } from "../controllers/integrations.controller";
+import { getUserIntegrations } from "../controllers/integrations.controller.js";
 
 export const integrationRouter = express.Router();
 

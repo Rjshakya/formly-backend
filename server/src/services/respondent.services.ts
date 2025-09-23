@@ -1,11 +1,11 @@
 import { DrizzleError, eq } from "drizzle-orm";
-import db from "../db/config";
-import {respondentTable} from "../db/schema/respondents";
-import ApiError, { errorTypes } from "../utils/apiError";
-import logger from "../utils/logger";
-import {responsesTable} from "../db/schema/responses";
-import {formTable} from "../db/schema/forms";
-import {formFieldTable} from "../db/schema/formfields";
+import db from "../db/config.js";
+import {respondentTable} from "../db/schema/respondents.js";
+import ApiError, { errorTypes } from "../utils/apiError.js";
+import logger from "../utils/logger.js";
+import {responsesTable} from "../db/schema/responses.js";
+import {formTable} from "../db/schema/forms.js";
+import {formFieldTable} from "../db/schema/formfields.js";
 
 const commonCatch = (error: unknown) => {
   logger.error(error);

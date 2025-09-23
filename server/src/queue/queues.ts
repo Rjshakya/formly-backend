@@ -1,5 +1,5 @@
-import { FlowProducer, Queue } from "bullmq";
-import { connection } from "../redis/config";
+import {  Queue } from "bullmq";
+import { connection } from "../redis/config.js";
 
 export const googleSheetQueueName = "googleSheetQueue";
 export const syncQueueName = "syncQueue";
@@ -41,16 +41,3 @@ export const eventQueue = new Queue("event-queue", {
     },
   },
 });
-
-// export const syncQueue = new Queue(syncQueueName, {
-//   connection,
-//   defaultJobOptions: {
-//     attempts: 3,
-//     backoff: {
-//       type: "fixed",
-//       delay: 1000,
-//     },
-//   },
-// });
-
-// export const syncFlow = new FlowProducer({ connection });

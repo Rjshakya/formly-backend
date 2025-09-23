@@ -1,9 +1,9 @@
-import db from "../db/config";
+import db from "../db/config.js";
 import { eq } from "drizzle-orm";
-import { account } from "../db/schema/auth-schema";
+import { account } from "../db/schema/auth-schema.js";
 
-import logger from "../utils/logger";
-import { auth } from "../utils/auth";
+import logger from "../utils/logger.js";
+import { auth } from "../utils/auth.js";
 
 export const accessToken = async (userId: string) => {
   try {

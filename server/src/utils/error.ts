@@ -1,6 +1,6 @@
 import { DrizzleError } from "drizzle-orm";
-import logger from "./logger";
-import ApiError, { errorTypes } from "./apiError";
+import logger from "./logger.js";
+import ApiError, { errorTypes } from "./apiError.js";
 
 export const commonCatch = (error: unknown) => {
   logger.error(error);

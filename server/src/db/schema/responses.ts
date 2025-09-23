@@ -1,9 +1,9 @@
 import { relations, sql } from "drizzle-orm";
 import { pgTable } from "drizzle-orm/pg-core";
 import * as t from "drizzle-orm/pg-core";
-import { formFieldTable } from "./formfields";
-import { formTable } from "./forms";
-import { respondentTable } from "./respondents";
+import { formFieldTable } from "./formfields.js";
+import { formTable } from "./forms.js";
+import { respondentTable } from "./respondents.js";
 
 export const responsesTable = pgTable("responses", {
   id: t

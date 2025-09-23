@@ -1,14 +1,10 @@
 import { eq } from "drizzle-orm";
-import db from "../../../db/config";
-import { account } from "../../../db/schema/auth-schema";
-import ApiError, { errorTypes } from "../../../utils/apiError";
-import { auth } from "../../../utils/auth";
-import { GoogleService } from "./google.services";
-import {formTable} from "../../../db/schema/forms";
-import { createNewIntegration } from "../../integration.services";
-import logger from "../../../utils/logger";
-import { integrationTable } from "../../../db/schema/integrations";
-
+import db from "../../../db/config.js";
+import { account } from "../../../db/schema/auth-schema.js";
+import ApiError, { errorTypes } from "../../../utils/apiError.js";
+import { GoogleService } from "./google.services.js";
+import { formTable } from "../../../db/schema/forms.js";
+import logger from "../../../utils/logger.js";
 
 export const sheetsServices = async (
   userId: string,
@@ -38,12 +34,9 @@ export const sheetsServices = async (
     );
     const { spreadsheetId, spreadsheetUrl } = sheet!.data;
 
-    
-
     return { spreadsheetId, spreadsheetUrl };
   } catch (error) {
     logger.error(JSON.stringify(error));
     throw new ApiError(JSON.stringify(error), 400, errorTypes.BAD_REQUEST);
   }
 };
-

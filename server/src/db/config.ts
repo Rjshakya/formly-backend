@@ -1,12 +1,12 @@
 import { drizzle } from "drizzle-orm/node-postgres";
 import { Pool } from "pg";
-import * as authSchema from "./schema/auth-schema";
-import * as formFields from "./schema/formfields";
-import * as forms from "./schema/forms";
-import * as integrations from "./schema/integrations";
-import * as respondents from "./schema/respondents";
-import * as responses from "./schema/responses";
-import * as workspaces from "./schema/workspace"
+import * as authSchema from "./schema/auth-schema.js";
+import * as formFields from "./schema/formfields.js";
+import * as forms from "./schema/forms.js";
+import * as integrations from "./schema/integrations.js";
+import * as respondents from "./schema/respondents.js";
+import * as responses from "./schema/responses.js";
+import * as workspaces from "./schema/workspace.js"
 
 const db_url = process.env.DATABASE_URL;
 

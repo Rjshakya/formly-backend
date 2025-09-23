@@ -1,5 +1,5 @@
-import { accessToken } from "../services/internal.services";
-import asyncHandler from "../utils/asynHandler";
+import { accessToken } from "../services/internal.services.js";
+import asyncHandler from "../utils/asynHandler.js";
 
 export const getAccessTokenController = asyncHandler(async (req, res) => {
   const { userId } = req?.params;

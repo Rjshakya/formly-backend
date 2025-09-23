@@ -1,8 +1,8 @@
 import { pgTable } from "drizzle-orm/pg-core";
 import * as t from "drizzle-orm/pg-core";
 import { relations, sql } from "drizzle-orm";
-import { user } from "./auth-schema";
-import { formTable } from "./forms";
+import { user } from "./auth-schema.js";
+import { formTable } from "./forms.js";
 
 export const workspaceTable = pgTable("workspaces", {
   id: t

@@ -4,15 +4,15 @@ import {
   responseObject,
   source,
   validationMiddleware,
-} from "../utils/validations";
+} from "../utils/validations.js";
 import {
   postFormResponse,
   getFormResponses,
   postMultipleResponse,
   editFormResponses,
-} from "../controllers/responses.controller";
+} from "../controllers/responses.controller.js";
 import z from "zod";
-import { authMiddleWare } from "../middlewares/authMiddleware";
+import { authMiddleWare } from "../middlewares/authMiddleware.js";
 
 const responsesRouter = express.Router();
 

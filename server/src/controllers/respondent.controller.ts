@@ -5,8 +5,8 @@ import {
   getFormRespondentsService,
   getFormResponsesByRespondentService,
   getRespondentbyIdService,
-} from "../services/respondent.services";
-import asyncHandler from "../utils/asynHandler";
+} from "../services/respondent.services.js";
+import asyncHandler from "../utils/asynHandler.js";
 
 export const createRespondent = asyncHandler(async (req, res) => {
   const respondent = await createRespondentService(req?.body);

@@ -1,5 +1,5 @@
 import express from "express";
-import { formObject, source, validationMiddleware } from "../utils/validations";
+import { formObject, source, validationMiddleware } from "../utils/validations.js";
 import {
   createForm,
   deleteForm,
@@ -7,9 +7,9 @@ import {
   getFormWithFormField,
   getWorkspaceForms,
   updateForm,
-} from "../controllers/form.controller";
+} from "../controllers/form.controller.js";
 import z from "zod";
-import { authMiddleWare } from "../middlewares/authMiddleware";
+import { authMiddleWare } from "../middlewares/authMiddleware.js";
 
 const formRouter = express.Router();
 

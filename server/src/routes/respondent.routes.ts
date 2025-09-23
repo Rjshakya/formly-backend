@@ -4,16 +4,16 @@ import {
   respondentObject,
   source,
   validationMiddleware,
-} from "../utils/validations";
+} from "../utils/validations.js";
 import {
   createRespondent,
   deleteMultipleRespondents,
   deleteRespondent,
   getFormRespondent,
   getRespondent,
-} from "../controllers/respondent.controller";
+} from "../controllers/respondent.controller.js";
 import z from "zod";
-import { authMiddleWare } from "../middlewares/authMiddleware";
+import { authMiddleWare } from "../middlewares/authMiddleware.js";
 
 const respondentRouter = express.Router();
 

@@ -3,8 +3,8 @@ import {
   createResponseService,
   editResponseService,
   getFormResponsesService,
-} from "../services/responses.services";
-import asyncHandler from "../utils/asynHandler";
+} from "../services/responses.services.js";
+import asyncHandler from "../utils/asynHandler.js";
 
 export const postFormResponse = asyncHandler(async (req, res) => {
   const response = await createResponseService(req?.body);

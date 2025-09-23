@@ -4,9 +4,9 @@ import {
   text,
   timestamp,
   boolean,
-  integer,
+
 } from "drizzle-orm/pg-core";
-import { workspaceTable } from "./workspace";
+import { workspaceTable } from "./workspace.js";
 
 export const user = pgTable("user", {
   id: text("id").primaryKey(),

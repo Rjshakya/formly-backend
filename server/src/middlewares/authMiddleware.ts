@@ -1,7 +1,7 @@
 import { RequestHandler, Request } from "express";
-import { auth } from "../utils/auth";
+import { auth } from "../utils/auth.js";
 import { fromNodeHeaders } from "better-auth/node";
-import ApiError, { errorTypes } from "../utils/apiError";
+import ApiError, { errorTypes } from "../utils/apiError.js";
 
 export interface extendedRequest extends Request {
   userId?: string;

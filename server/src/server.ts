@@ -6,7 +6,7 @@ await pool
   ?.connect()
   ?.then(() => {
     console.log("Database connected");
-    
+
     app.listen(port, async () => {
       console.log(`app listening at http://localhost:${port}`);
     });

@@ -1,13 +1,13 @@
 import { relations, sql, Table } from "drizzle-orm";
 import { pgTable } from "drizzle-orm/pg-core";
 import * as t from "drizzle-orm/pg-core";
-import { workspaceTable } from "./workspace";
-import { user } from "./auth-schema";
-import { uid } from "../../utils/shortIDgen";
-import { respondentTable } from "./respondents";
-import { responsesTable } from "./responses";
-import { integrationTable } from "./integrations";
-import { formFieldTable } from "./formfields";
+import { workspaceTable } from "./workspace.js";
+import { user } from "./auth-schema.js";
+
+import { respondentTable } from "./respondents.js";
+import { responsesTable } from "./responses.js";
+import { integrationTable } from "./integrations.js";
+import { formFieldTable } from "./formfields.js";
 
 export const formTable = pgTable("forms", {
   id: t

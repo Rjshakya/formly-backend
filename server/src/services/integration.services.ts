@@ -1,14 +1,11 @@
-import { DrizzleError, eq } from "drizzle-orm";
-import db from "../db/config";
-
-import ApiError, { errorTypes } from "../utils/apiError";
-import logger from "../utils/logger";
+import {  eq } from "drizzle-orm";
+import db from "../db/config.js";
 import {
   googleSheetsIntegrationTable,
   integrationTable,
-} from "../db/schema/integrations";
-import { commonCatch } from "../utils/error";
-import { eventQueue } from "../queue/queues";
+} from "../db/schema/integrations.js";
+import { commonCatch } from "../utils/error.js";
+import { eventQueue } from "../queue/queues.js";
 
 export const createNewIntegration = async (
   values: typeof integrationTable.$inferInsert,

@@ -6,7 +6,7 @@ import {
   boolean,
 
 } from "drizzle-orm/pg-core";
-import { workspaceTable } from "./workspace.js";
+import { workspaceTable } from "./workspace";
 
 export const user = pgTable("user", {
   id: text("id").primaryKey(),
@@ -68,6 +68,6 @@ export const verification = pgTable("verification", {
   ),
 });
 
-export const userRelations = relations(user, ({ many, one }) => ({
+export const userRelations = relations(user, ({ many }) => ({
   workspaces: many(workspaceTable),
 }));

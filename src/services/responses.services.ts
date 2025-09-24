@@ -4,7 +4,7 @@ import { responsesTable } from "../db/schema/responses.js";
 import { formFieldTable } from "../db/schema/formfields.js";
 import { formTable } from "../db/schema/forms.js";
 import { respondentTable } from "../db/schema/respondents.js";
-import { googleSheetsQueue } from "../queue/queues.js";
+// import { googleSheetsQueue } from "../queue/queues.js";
 import { commonCatch } from "../utils/error.js";
 
 export const createResponseService = async (
@@ -119,10 +119,11 @@ export const createMultipleResponsesService = async (
 
     const userId = user[0].creator;
 
-    googleSheetsQueue.add("addResponses", {
-      result,
-      userId,
-    });
+    // googleSheetsQueue.add("addResponses", {
+    //   result,
+    //   userId,
+    // });
+    
     return result;
   } catch (error) {
     commonCatch(error);

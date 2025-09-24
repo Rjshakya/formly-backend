@@ -2,7 +2,7 @@ import { relations, sql } from "drizzle-orm";
 import { pgTable } from "drizzle-orm/pg-core";
 import * as t from "drizzle-orm/pg-core";
 
-import { formTable } from "./forms.js";
+import { formTable } from "./forms";
 
 export const integrationTable = pgTable("integrations", {
   id: t

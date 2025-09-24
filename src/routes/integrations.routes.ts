@@ -6,7 +6,7 @@ import {
   integrationObject,
   source,
   validationMiddleware,
-} from "../utils/validations";
+} from "../utils/validations.js";
 import { getUserIntegrations } from "../controllers/integrations.controller.js";
 
 export const integrationRouter = express.Router();

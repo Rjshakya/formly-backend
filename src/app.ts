@@ -9,8 +9,6 @@ import formRouter from "./routes/form.routes.js";
 import formFieldsRouter from "./routes/formField.routes.js";
 import respondentRouter from "./routes/respondent.routes.js";
 import responsesRouter from "./routes/response.routes.js";
-import swaggerUi from "swagger-ui-express";
-import YAML from "yamljs";
 import { toNodeHandler } from "better-auth/node";
 import { auth } from "./utils/auth.js";
 import cors from "cors";
@@ -19,28 +17,32 @@ import { internalRouter } from "./routes/internal.routes.js";
 import { pool } from "./db/config.js";
 
 export const app: express.Application = express();
+// const swaggerDoc = YAML.load("./swagger.yaml");
 
-app.use(
-  cors({
-    origin: ["http://localhost:5173", "http://localhost:3000"],
-    credentials: true,
-  })
-);
+// app.use(
+//   cors({
+//     origin: ["http://localhost:5173", "http://localhost:3000"],
+//     credentials: true,
+//   })
+// );
+
 app.all("/api/auth/{*any}", toNodeHandler(auth));
 app.use(express.json({ limit: "10kb", inflate: true }));
 app.use(express.urlencoded({ extended: true }));
 
-app.use(
-  responseTime((req: Request, res: Response, time) => {
-    logger.info(
-      ` ${req.originalUrl} : ${req.method} : ${req.ip} : ${time.toFixed(2)} ms`
-    );
-  })
-);
+// app.use(
+//   responseTime((req: Request, res: Response, time) => {
+//     logger.info(
+//       ` ${req.originalUrl} : ${req.method} : ${req.ip} : ${time.toFixed(2)} ms`
+//     );
+//   })
+// );
 
 app.get("/", async (req, res) => {
-  return res.json({
+  const dbRes = await pool.query(`SELECT NOW()`);
+   res.json({
     message: "Formly server",
+    time: dbRes?.rows?.[0]?.now,
   });
 });
 
@@ -80,5 +82,4 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   });
 });
 
-const swaggerDoc = YAML.load("./swagger.yaml");
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDoc));
+// app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDoc));

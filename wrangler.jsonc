@@ -1,0 +1,7 @@
+{
+  "name": "my-worker",
+  "main": "src/server.ts",
+  "compatibility_flags": ["nodejs_compat"],
+  "compatibility_date": "2025-09-01",
+  "workers_dev": false
+}

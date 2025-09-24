@@ -1,5 +1,5 @@
 import { google } from "googleapis";
-import logger from "../../../utils/logger";
+import logger from "../../../utils/logger.js";
 
 export class GoogleService {
   private auth: any;
@@ -13,7 +13,7 @@ export class GoogleService {
   private async commonErr(e: unknown) {
     logger.error(e);
     throw e
-  }
+  } 
 
   async getSheet() {
     const sheets = google.sheets({ version: "v4", auth: this.auth });

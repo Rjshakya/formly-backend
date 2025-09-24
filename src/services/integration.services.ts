@@ -5,7 +5,7 @@ import {
   integrationTable,
 } from "../db/schema/integrations.js";
 import { commonCatch } from "../utils/error.js";
-import { eventQueue } from "../queue/queues.js";
+// import { eventQueue } from "../queue/queues.js";
 
 export const createNewIntegration = async (
   values: typeof integrationTable.$inferInsert,
@@ -21,11 +21,11 @@ export const createNewIntegration = async (
 
     integration = await db.insert(integrationTable).values(values).returning();
 
-    eventQueue.add("create-integration-event", {
-      type,
-      integration: integration[0]?.id,
-      formId: values?.formId,
-    });
+    // eventQueue.add("create-integration-event", {
+    //   type,
+    //   integration: integration[0]?.id,
+    //   formId: values?.formId,
+    // });
 
     return integration;
   } catch (error) {

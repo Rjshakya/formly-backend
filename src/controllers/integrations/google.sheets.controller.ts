@@ -1,7 +1,7 @@
 import { sheetsServices } from "../../services/integrations/google/sheets.js";
 import ApiError, { errorTypes } from "../../utils/apiError.js";
 import asyncHandler from "../../utils/asynHandler.js";
-import logger from "../../utils/logger.js";
+import { commonCatch } from "../../utils/error.js";
 
 export const googleSheetController = asyncHandler(async (req, res) => {
   try {
@@ -13,7 +13,6 @@ export const googleSheetController = asyncHandler(async (req, res) => {
       sheet,
     });
   } catch (error) {
-    logger.error(JSON.stringify(error));
-    throw new ApiError("internal error", 500, errorTypes.INTERNAL);
+    commonCatch(error)
   }
 });

@@ -11,7 +11,7 @@ export class GoogleService {
   }
 
   private async commonErr(e: unknown) {
-    logger.error(e);
+    logger.error(`${e}`);
     throw e
   } 
 

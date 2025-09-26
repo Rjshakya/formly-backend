@@ -2,8 +2,7 @@ import "dotenv/config";
 
 import express, { NextFunction, Request, Response } from "express";
 import ApiError from "./utils/apiError.js";
-import logger from "./utils/logger.js";
-import responseTime from "response-time";
+import { logger } from "better-auth";
 import workspaceRouter from "./routes/workspace.routes.js";
 import formRouter from "./routes/form.routes.js";
 import formFieldsRouter from "./routes/formField.routes.js";
@@ -14,7 +13,6 @@ import { auth } from "./utils/auth.js";
 import cors from "cors";
 import { integrationRouter } from "./routes/integrations.routes.js";
 import { internalRouter } from "./routes/internal.routes.js";
-import { pool } from "./db/config.js";
 
 export const app: express.Application = express();
 // const swaggerDoc = YAML.load("./swagger.yaml");
@@ -39,19 +37,16 @@ app.use(express.urlencoded({ extended: true }));
 // );
 
 app.get("/", async (req, res) => {
-  const dbRes = await pool.query(`SELECT NOW()`);
-   res.json({
+  res.json({
     message: "Formly server",
-    time: dbRes?.rows?.[0]?.now,
   });
 });
 
 app.get("/health", async (req: Request, res: Response) => {
-  const dbRes = await pool.query(`SELECT NOW()`);
   res.status(200).json({
     message: "server is up and running",
-    db: dbRes?.rows?.length !== 0,
-    time: dbRes?.rows?.[0]?.now,
+    // db: dbRes?.rows?.length !== 0,
+    // time: dbRes?.rows?.[0]?.now,
   });
 });
 
@@ -65,7 +60,7 @@ app.use("/api/internal", internalRouter);
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   if (err instanceof ApiError) {
     logger.error(err.message);
-    process.env.NODE_ENV === "development" && logger.error(err.stack);
+    process.env.NODE_ENV === "development" && logger.error(`${err.stack}`);
     return res.status(err.status || 500).json({
       message: err.message,
       stack: process.env.NODE_ENV === "development" ? err?.stack : null,
@@ -73,8 +68,8 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
     });
   }
 
-  logger.error(err);
-  process.env.NODE_ENV === "development" && logger.error(err.stack);
+  logger.error(`${err}`);
+  process.env.NODE_ENV === "development" && logger.error(`${err.stack}`);
   return res.status(500).json({
     message: err.message,
     stack: process.env.NODE_ENV === "development" ? err?.stack : null,

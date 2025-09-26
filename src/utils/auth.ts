@@ -9,6 +9,8 @@ import {
   verification,
 } from "../db/schema/auth-schema.js";
 
+const trusted_url = process.env.FRONTEND_URL
+
 export const auth = betterAuth({
   database: drizzleAdapter(db, {
     provider: "pg",
@@ -19,7 +21,7 @@ export const auth = betterAuth({
       verification,
     },
   }),
-  trustedOrigins: ["http://localhost:3000", "http://localhost:3005"],
+  trustedOrigins: [trusted_url],
   socialProviders: {
     google: {
       prompt: "select_account consent",
@@ -29,4 +31,5 @@ export const auth = betterAuth({
       display: "wap",
     },
   },
+
 });

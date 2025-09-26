@@ -3,7 +3,7 @@ import logger from "./logger.js";
 import ApiError, { errorTypes } from "./apiError.js";
 
 export const commonCatch = (error: unknown) => {
-  logger.error(error);
+  logger.error(`${error}`);
 
   if (error instanceof DrizzleError) {
     throw new ApiError(error?.message, 500, errorTypes.INTERNAL);

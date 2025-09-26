@@ -1,5 +1,5 @@
 import { and, asc, eq } from "drizzle-orm";
-import db from "../db/config.js";
+import db, { getDb } from "../db/config.js";
 import { formTable } from "../db/schema/forms.js";
 import { user } from "../db/schema/auth-schema.js";
 import { formFieldTable } from "../db/schema/formfields.js";
@@ -10,7 +10,7 @@ export const createFormService = async (
   formValues: typeof formTable.$inferInsert
 ) => {
   try {
-    const form = await db.insert(formTable).values(formValues).returning();
+    const form = await getDb().insert(formTable).values(formValues).returning();
 
     return form[0];
   } catch (error) {

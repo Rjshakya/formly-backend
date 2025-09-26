@@ -1,17 +1,9 @@
-import { and, DrizzleError, eq } from "drizzle-orm";
+import { and , eq } from "drizzle-orm";
 import db from "../db/config.js";
 import { formFieldTable } from "../db/schema/formfields.js";
 import ApiError, { errorTypes } from "../utils/apiError.js";
-import logger from "../utils/logger.js";
-const commonCatch = (error: unknown) => {
-  logger.error(error);
+import { commonCatch } from "../utils/error.js";
 
-  if (error instanceof DrizzleError) {
-    throw new ApiError(error?.message, 500, errorTypes.INTERNAL);
-  }
-
-  throw new ApiError(JSON.stringify(error), 500, errorTypes.INTERNAL);
-};
 
 export const createFormFieldService = async (
   formFieldvalues: typeof formFieldTable.$inferInsert

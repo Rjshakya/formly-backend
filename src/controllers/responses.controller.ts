@@ -26,8 +26,6 @@ export const getFormResponses = asyncHandler(async (req, res) => {
   const pageIndex = Math.max(0, parseInt(req?.query?.pageIndex as string));
   const pageSize = Math.max(1, parseInt(req?.query?.pageSize as string));
 
-  console.log(pageIndex, pageSize);
-
   const responses = await getFormResponsesService(
     req?.params?.formId,
     pageIndex,

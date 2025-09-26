@@ -1,21 +1,12 @@
-import { DrizzleError, eq } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 import db from "../db/config.js";
 import {respondentTable} from "../db/schema/respondents.js";
-import ApiError, { errorTypes } from "../utils/apiError.js";
-import logger from "../utils/logger.js";
 import {responsesTable} from "../db/schema/responses.js";
 import {formTable} from "../db/schema/forms.js";
 import {formFieldTable} from "../db/schema/formfields.js";
+import { commonCatch } from "../utils/error.js";
 
-const commonCatch = (error: unknown) => {
-  logger.error(error);
 
-  if (error instanceof DrizzleError) {
-    throw new ApiError(error?.message, 500, errorTypes.INTERNAL);
-  }
-
-  throw new ApiError(JSON.stringify(error), 500, errorTypes.INTERNAL);
-};
 
 export const createRespondentService = async (
   respondentValues: typeof respondentTable.$inferInsert

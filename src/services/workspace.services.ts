@@ -1,5 +1,5 @@
 import db from "../db/config.js";
-import { workspaceTable } from "../db/schema/workspace.js";
+import { workspaceTable } from "../db/schema/workspace";
 import ApiError, { errorTypes } from "../utils/apiError.js";
 import { eq } from "drizzle-orm";
 import { commonCatch } from "../utils/error.js";
@@ -64,7 +64,7 @@ export const getWorkspacesWithFormsService = async (userId: string) => {
 
     return res1;
   } catch (e) {
-    console.log(e);
+
     commonCatch(e);
   }
 };

@@ -15,18 +15,19 @@ import db from "./db/config.js";
 import { apiRouter } from "./routes/index.js";
 
 export const app: express.Application = express();
-const trusted_url = process.env.FRONTEND_URL
+const trusted_url = process.env.FRONTEND_URL;
+
 app.use(
   cors({
-    origin: [trusted_url],
-    credentials: true,
+    origin: trusted_url, // Replace with your frontend's origin
+    methods: ["GET", "POST", "PUT", "DELETE"], // Specify allowed HTTP methods
+    credentials: true, // Allow credentials (cookies, authorization headers, etc.)
   })
 );
 
 app.all("/api/auth/{*any}", toNodeHandler(auth));
 app.use(express.json({ limit: "10kb", inflate: true }));
 app.use(express.urlencoded({ extended: true }));
-
 
 app.get("/", async (req, res) => {
   res.json({
@@ -35,10 +36,10 @@ app.get("/", async (req, res) => {
 });
 
 app.get("/health", async (req: Request, res: Response) => {
-  const {rows} = await db.execute(`SELECT version()`)
+  const { rows } = await db.execute(`SELECT version()`);
   res.status(200).json({
     message: "server is up and running",
-    rows
+    rows,
     // db: dbRes?.rows?.length !== 0,
     // time: dbRes?.rows?.[0]?.now,
   });

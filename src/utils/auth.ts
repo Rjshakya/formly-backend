@@ -9,7 +9,7 @@ import {
   verification,
 } from "../db/schema/auth-schema.js";
 
-const trusted_url = process.env.FRONTEND_URL
+const trusted_url = process.env.FRONTEND_URL;
 
 export const auth = betterAuth({
   database: drizzleAdapter(db, {
@@ -31,5 +31,4 @@ export const auth = betterAuth({
       display: "wap",
     },
   },
-
 });

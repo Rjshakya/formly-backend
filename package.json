@@ -5,11 +5,11 @@
   "main": "dist/server.js",
   "type": "module",
   "scripts": {
-    "dev": "wrangler dev",
+    "dev": "wrangler dev --port 5000",
     "build": "tsup",
     "start": "node dist/server.js",
-    "deploy": "wrangler deploy --miniflare",
-    "cf-typegen":"wrangler types --env-interface CloudflareBindings"
+    "deploy": "wrangler deploy --minify",
+    "cf-typegen": "wrangler types --env-interface CloudflareBindings"
   },
   "keywords": [],
   "author": "",
@@ -25,15 +25,9 @@
     "drizzle-orm": "^0.44.3",
     "drizzle-zod": "^0.8.2",
     "express": "^5.1.0",
-    "googleapis": "^156.0.0",
-    "morgan": "^1.10.1",
     "nodemon": "^3.1.10",
-    "pg": "^8.16.3",
-    "response-time": "^2.3.4",
     "short-unique-id": "^5.3.2",
     "uuid": "^11.1.0",
-    "winston": "^3.17.0",
-    "yamljs": "^0.3.0",
     "zod": "^4.0.5"
   },
   "devDependencies": {
@@ -46,8 +40,6 @@
     "@types/swagger-ui-express": "^4.1.8",
     "@types/yamljs": "^0.2.34",
     "drizzle-kit": "^0.31.4",
-    "esbuild": "^0.25.8",
-    "glob": "^11.0.3",
     "ts-node": "^10.9.2",
     "tsup": "^8.5.0",
     "tsx": "^4.20.3",

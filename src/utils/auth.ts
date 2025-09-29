@@ -16,6 +16,7 @@ export const auth = betterAuth({
     ipAddress: { ipAddressHeaders: ["cf-connecting-ip"] },
     crossSubDomainCookies: {
       enabled: true,
+      domain:'formly-lemon.vercel.app'
     },
   },
   database: drizzleAdapter(db, {

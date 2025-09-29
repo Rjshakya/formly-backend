@@ -14,10 +14,6 @@ const trusted_url = process.env.FRONTEND_URL;
 export const auth = betterAuth({
   advanced: {
     ipAddress: { ipAddressHeaders: ["cf-connecting-ip"] },
-    crossSubDomainCookies: {
-      enabled: true,
-      domain: "nextformly.rajshakya631.workers.dev",
-    },
   },
   database: drizzleAdapter(db, {
     provider: "pg",
